@@ -1,15 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { ToastContainer } from 'react-toastify';
+import { Lexend, Geist_Mono, Playwrite_GB_S } from "next/font/google";
+import 'react-toastify/dist/ReactToastify.css';
+import { ThemeProvider } from 'next-themes'
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const lexend = Lexend({
+  variable: "--font-lexend",
   subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const playwriteGb = Playwrite_GB_S({
+  weight: "400",
+  variable: "--font-playwrite-gb",
 });
 
 export const metadata: Metadata = {
@@ -23,11 +31,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${lexend.variable} ${geistMono.variable} ${playwriteGb.variable}`}>
+        <ThemeProvider attribute="data-theme">
+          {children}
+          <ToastContainer
+            position="bottom-center"
+            autoClose={1000}
+            limit={1}
+            hideProgressBar
+            newestOnTop
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            theme="dark"
+          />
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,26 +1,159 @@
 @import "tailwindcss";
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fefcdc;
+  --foreground: #000000;
+  --main-button: #262c35;
+  --main-button-hover: #425b7f;
+
+  --fade-out-timer: 1s;
+  --fade-in-timer: 1.5s;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-geist-mono);
+  --font-mono: var(--font-lexend);
+  --font-title: var(--font-playwrite-gb);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+[data-theme='dark'] {
+  --background: #262c35;
+  --foreground: #ededed;
+  --main-button: #f7ea39;
+  --main-button-hover: #f7f5d4;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 1s ease, color 1s ease;
+  min-width: 600px;
+}
+
+.browse-button {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.25);
+  background-color: var(--main-button);
+  color: var(--background);
+  transition: background-color 1s ease,
+    color 0.2s ease,
+    box-shadow 1s ease;
+}
+
+.browse-button:hover {
+  background-color: var(--main-button-hover);
+  transition: background-color 0s;
+}
+
+.grid-masonry {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-rows: masonry;
+  gap: 1rem;
+}
+
+.Toastify__toast {
+  font-family: var(--font-lexend) !important;
+  text-align: center !important;
+  justify-content: center !important;
+}
+
+.Toastify__toast-body {
+  text-align: center !important;
+}
+
+
+.fade-in-1 {
+  opacity: 0;
+  animation: fadeIn var(--fade-in-timer) ease-in forwards;
+}
+
+.fade-in-2 {
+  opacity: 0;
+  animation: fadeIn var(--fade-in-timer) ease-in var(--fade-in-timer) forwards;
+}
+
+.fade-in-2.browse-button {
+  animation: fadeInButton var(--fade-in-timer) ease-in var(--fade-in-timer) forwards;
+}
+
+.fade-out {
+  animation: fadeOut var(--fade-out-timer) ease-out;
+  pointer-events: none;
+}
+
+.fade-out.browse-button {
+  animation: fadeOutButton var(--fade-out-timer) ease-out;
+}
+
+/* Required since specificity is 0,0,2 - Strong enough to override Tailwind transforms on the element this class is used on*/
+.fade-out.intro-content {
+  animation: fadeOut var(--fade-out-timer) ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInButton {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.25) translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.25);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+@keyframes fadeOutButton {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.25);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.25) translateY(20px);
+  }
+}
+
+
+.fade-in-delayed {
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out forwards;
+  animation-delay: 1s;
+  /* Delay until after content fades out */
+}
+
+.fade-in-staggered {
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out forwards;
 }
