@@ -1,7 +1,9 @@
 "use client"
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { QuoteFadeOutContext } from '@/contexts/QuoteFadeOutContext';
 import { toast } from 'react-toastify';
 import { FaRegCopy, FaRegHeart, FaHeart } from 'react-icons/fa';
+
 
 type QuoteProps = {
     quote: { id: number; quote: string; author: string }
@@ -12,7 +14,8 @@ type QuoteProps = {
 
 export default function Quote({ index, quote, isLiked, onLikeChange }: QuoteProps) {
     const [likeClicked, setLikeClicked] = useState(isLiked);
-
+    const quoteFadeOut = useContext(QuoteFadeOutContext);
+    
     useEffect(() => {
         setLikeClicked(isLiked);
     }, [isLiked]);
@@ -38,12 +41,9 @@ export default function Quote({ index, quote, isLiked, onLikeChange }: QuoteProp
 
     return (
         <div id={quote.id.toString()}
-            className={`break-inside-avoid mb-4 px-6 pt-6 pb-3 rounded-lg bg-yellow-300/30 dark:bg-white/10 backdrop-blur-sm
+            className={`quote break-inside-avoid mb-4 px-6 pt-6 pb-3 rounded-lg bg-yellow-300/30 dark:bg-white/10 backdrop-blur-sm
                             shadow-lg hover:shadow-xl
-                            fade-in-staggered`}
-            style={{
-                animationDelay: `${index}ms`,
-            }}
+            ${quoteFadeOut ? 'fade-out' : 'fade-in-staggered'}`}
         >
             <div className="grid grid-rows-[1fr_40px]">
                 <p className="text-xl mb-4">{quote.quote}</p>
