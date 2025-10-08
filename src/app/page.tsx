@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import BrowseButton from "./components/BrowseButton";
 import ThemeToggle from "./ThemeToggle";
 import QuoteGrid from "./components/QuoteGrid";
+import { FaGithub } from "react-icons/fa";
 
 export default function Home() {
   const [hideContent, setHideContent] = useState(false);
@@ -17,6 +18,7 @@ export default function Home() {
       setShowQuotes(true);
     }, 900);
   };
+
 
   return (
     <div className="font-title min-h-screen p-12">
@@ -42,22 +44,30 @@ export default function Home() {
             <h2 className="text-5xl">Enjoy!</h2>
           </div>
 
-          <BrowseButton 
-            onClick={handleBrowseClick} 
+          <BrowseButton
+            onClick={handleBrowseClick}
             className={fadeOutActive ? 'fade-out' : ''}
           />
         </>
       )}
 
-        {/* Quote Grid */}
+      {/* Quote Grid */}
       {showQuotes && <QuoteGrid />}
 
       {/* Permanent Elements */}
-      <footer className="fixed w-full bottom-0 left-0 text-center p-4">
-        Test Test
+      <footer className="fixed bottom-2 left-[50%] transform -translate-x-1/2 z-10 flex justify-center font-mono text-lg rounded-xl w-fit 
+                            bg-yellow-300 shadow-xl dark:bg-gray-600 
+                            py-2 px-5 w-fit fade-in-2">
+        <a className="flex justify-center items-center bg-yellow-500/40 dark:bg-gray-700
+                     hover:bg-yellow-500 dark:hover:bg-gray-800 rounded-xl px-3 py-1"
+                     target="_blank"
+                     href="https://github.com/TaikbNaihuss/ChinUp"
+                     >
+          <FaGithub className="scale-[1.25] mr-2"/> GitHub
+        </a>
       </footer>
 
-      <div className="fixed top-[3.5vh] right-[2vw]">
+      <div className="fixed top-4 right-[2vw] z-10">
         <ThemeToggle />
       </div>
     </div>
