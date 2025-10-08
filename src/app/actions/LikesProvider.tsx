@@ -3,10 +3,8 @@
 import { cookies } from 'next/headers'
 
 export async function getLikedQuotes(): Promise<number[]> {
-    console.log('Fetching liked quotes from cookie...')
     const cookieStore = await cookies();
     const likedQuotes = cookieStore.get('likedQuotes')?.value;
-    console.log('Current liked quotes from cookie:', likedQuotes);
 
     return likedQuotes ? JSON.parse(likedQuotes) : [];
 }

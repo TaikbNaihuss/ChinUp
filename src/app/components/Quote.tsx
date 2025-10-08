@@ -22,8 +22,6 @@ export default function Quote({quote, isLiked, onLikeChange }: QuoteProps) {
     const handleLike = async () => {
         try {
             setLikeClicked(!isLiked)
-            console.log('Updating like for quote ID:', quote.id, 'Action:', isLiked ? 'remove' : 'add')
-
             onLikeChange(quote.id, isLiked)
         } catch (error) {
             console.error('Error updating like:', error)
