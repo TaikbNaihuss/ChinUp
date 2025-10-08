@@ -23,7 +23,7 @@ export default function QuoteGrid() {
         let newQuotes: typeof quotes = [];
         if (likedQuotesOnly) {
             likedQuotesIdCollection.forEach((id) => {
-                var likedQuote = quotes.find(q => q.id === id);
+                const likedQuote = quotes.find(q => q.id === id);
                 if (likedQuote) {
                     newQuotes.push(likedQuote)
                 }
@@ -97,10 +97,9 @@ export default function QuoteGrid() {
 
             <QuoteFadeOutContext value={isQuoteFadingOut}>
                 <div className="mt-8 columns-1 md:columns-2 lg:columns-3 gap-4 px-4 fade-in-delayed">
-                    {sortedQuotes.map((quote, index) => (
+                    {sortedQuotes.map((quote) => (
                         <Quote
                             key={quote.id}
-                            index={index}
                             quote={quote}
                             isLiked={likedQuotesIdCollection.includes(quote.id)}
                             onLikeChange={handleLike}

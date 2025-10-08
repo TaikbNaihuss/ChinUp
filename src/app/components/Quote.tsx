@@ -7,12 +7,11 @@ import { FaRegCopy, FaRegHeart, FaHeart } from 'react-icons/fa';
 
 type QuoteProps = {
     quote: { id: number; quote: string; author: string }
-    index: number
     isLiked: boolean
     onLikeChange: (quoteId: number, currentlyLiked: boolean) => void
 }
 
-export default function Quote({ index, quote, isLiked, onLikeChange }: QuoteProps) {
+export default function Quote({quote, isLiked, onLikeChange }: QuoteProps) {
     const [likeClicked, setLikeClicked] = useState(isLiked);
     const quoteFadeOut = useContext(QuoteFadeOutContext);
     
